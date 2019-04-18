@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="github.js"></script>
+    <title>Github Repos</title>
+    <style>
+    h1 {text-align: center;}
+    .ui-page, .ui-dialog {
+      background: transparent repeat scroll;
+    }
+
+  </style>
+  </head>
+  <body>
+    <div>
+      <h1>Get public GitHub repositories for any user!</h1>
+      <div>
+      <label for="username">Enter a GitHub username:</label>
+      <input id="username" type="text">
+    </div>
+      <button id="getButton">Get user's repos!</button>
+      <br>
+      <img id="userAvatar" width="200" height="200">
+      <div class="repoCount"></div>
+      <div class="errors"></div>
+      <div class="showHumidity"></div>
+      <div class="showTemp"></div>
+  </div>
+  </body>
+</html>

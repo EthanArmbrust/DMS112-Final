@@ -26,9 +26,10 @@ $(document).ready(function() {
         $('.showHumidity').text(`The first listed repo of ${username} is ${response[0].name}`);
         $('.showTemp').html(language_list).wrap('<pre />');
       },
-      error: function() {
-        $('#errors').text("There was an error processing your request. Please try again.");
+      error: function(response) {
+        $('.errors').text(response.message);
         console.log("errors");
+        console.log(response.message);
       }
     });
     $.ajax({
@@ -41,10 +42,12 @@ $(document).ready(function() {
       success: function(response) {
         let avatarURL = response.avatar_url;
         $('#userAvatar').attr('src', avatarURL);
+        $('#userAvatar').css('display', "inline");
       },
-      error: function() {
-        $('#errors').text("There was an error processing your request. Please try again.");
+      error: function(response) {
+        $('.errors').text(response.message);
         console.log("errors");
+        console.log(response.message);
       }
     });
   });

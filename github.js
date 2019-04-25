@@ -8,6 +8,7 @@ $(document).ready(function() {
     $('#username').val("");
     $.ajax({
       url: `https://api.github.com/users/${username}/repos`,
+      //url:`file:///Users/ethanarm/DMS112-Final/repos.json`,
       type: 'GET', // GET because we're passing parameters in the URL
       data: {
         format: 'json'
@@ -24,15 +25,39 @@ $(document).ready(function() {
           language_list += '\n';
         }
         var unique_lan = [];
+        var lang_count = [];
         for(var i = 0; i < repo_count; i++){
           if(!unique_lan.includes(language_arr[i])){
             unique_lan.push(language_arr[i]);
           }
         }
+        for(var i = 0; i < unique_lan.length; i++){
+          var sum = 0;
+          for(var j = 0; j < repo_count; j++){
+            if(language_arr[j] == unique_lan[i]){
+              sum++;
+            }
+          }
+          lang_count.push(sum);
+        }
+
+        var amount = 0;
+        var best = -1;
+        for(var i = 0; i < unique_lan.length; i++){
+          if(amount < lang_count[i]){
+            best = i;
+            amount = lang_count[i];
+          }
+        }
+
+        var fav_per = (amount/repo_count) * 100;
+
         console.log(unique_lan);
+        console.log(lang_count);
         $('.repoCount').text(`${username} has ${repo_count} public repositories.`)
         $('.showHumidity').text(`The first listed repo of ${username} is ${response[0].name}`);
-        $('.favorite').text('Users favorite language: ')
+        $('.favorite').text(`User's favorite language: ${unique_lan[best]}`);
+        $('.favorite_percent').text(`${fav_per}% of ${username}'s projects are written in ${unique_lan[best]}`);
         $('.showTemp').html(language_list).wrap('<pre />');
       },
       error: function(response) {

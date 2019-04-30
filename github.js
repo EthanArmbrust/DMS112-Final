@@ -17,12 +17,23 @@ $(document).ready(function() {
         let repo_count = response.length;
         let language_list = "";
         let language_arr = [];
+        let license_arr = [];
+        var license_map = new Map();
         for(var i = 0; i < repo_count; i++){
           language_list += response[i].name;
           language_list += '\n';
           language_list += '   ' + response[i].language;
           language_arr.push(response[i].language);
           language_list += '\n';
+          if(response[i].license != null){
+            var l = response[i].license.name;
+            if(!license_map.has(l)){
+              license_map.set(l, 1);
+            }
+            else{
+              license_map.set(l, license_map.get(l) + 1);
+            }
+          }
         }
         var unique_lan = [];
         var lang_count = [];
@@ -49,16 +60,24 @@ $(document).ready(function() {
             amount = lang_count[i];
           }
         }
+        var sorted_lic = new Map([...license_map].sort((a,b) => {
+            return b[1] - a[1];
+        }));
 
-        var fav_per = (amount/repo_count) * 100;
+        console.log(sorted_lic);
+
+        var fav_per = Math.round((amount/repo_count) * 100);
+        var fav_lic_per = Math.round((Array.from(sorted_lic.values())[0] / repo_count) * 100);
 
         console.log(unique_lan);
         console.log(lang_count);
         $('.repoCount').text(`${username} has ${repo_count} public repositories.`)
-        $('.showHumidity').text(`The first listed repo of ${username} is ${response[0].name}`);
+        $('.firstRepo').text(`The first listed repo of ${username} is ${response[0].name}`);
         $('.favorite').text(`User's favorite language: ${unique_lan[best]}`);
         $('.favorite_percent').text(`${fav_per}% of ${username}'s projects are written in ${unique_lan[best]}`);
-        $('.showTemp').html(language_list).wrap('<pre />');
+        $('.favorite_lic').text(`User's favorite license: ${Array.from(sorted_lic.keys())[0]}`);
+        $('.favorite_lic_percent').text(`${fav_lic_per}% of ${username}'s projects are licensed under ${Array.from(sorted_lic.keys())[0]}`);
+        $('.language_list').html(language_list).wrap('<pre />');
       },
       error: function(response) {
         $('.errors').text(response.message);

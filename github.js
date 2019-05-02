@@ -5,9 +5,29 @@
 $(document).ready(function() {
   $('#getButton').click(function() {
     let username = $('#username').val();
+    let repo_count = 0;
+    let avatarURL = "";
     $('#username').val("");
     $.ajax({
-      url: `https://api.github.com/users/${username}/repos`,
+      url: `https://api.github.com/users/${username}`,
+      //url: `http://api.openweathermap.org/data/2.5/weather?q=${city}`,
+      type: 'GET', // GET because we're passing parameters in the URL
+      async: false,
+      data: {
+        format: 'json'
+      },
+      success: function(response) {
+        avatarURL = response.avatar_url;
+        repo_count = response.public_repos;
+      },
+      error: function(response) {
+        $('.errors').text(response.message);
+        console.log("errors");
+        console.log(response.message);
+      }
+    });
+    $.ajax({
+      url: `https://api.github.com/users/${username}/repos?per_page=${repo_count}`,
       //url:`file:///Users/ethanarm/DMS112-Final/repos.json`,
       type: 'GET', // GET because we're passing parameters in the URL
       data: {
@@ -71,31 +91,16 @@ $(document).ready(function() {
 
         console.log(unique_lan);
         console.log(lang_count);
+        $('#content').css('display', "inline");
+        $('#userAvatar').attr('src', avatarURL);
+        $('#userAvatar').css('display', "inline");
+        $('.username').text(`${username}`);
         $('.repoCount').text(`${username} has ${repo_count} public repositories.`)
-        $('.firstRepo').text(`The first listed repo of ${username} is ${response[0].name}`);
         $('.favorite').text(`User's favorite language: ${unique_lan[best]}`);
         $('.favorite_percent').text(`${fav_per}% of ${username}'s projects are written in ${unique_lan[best]}`);
         $('.favorite_lic').text(`User's favorite license: ${Array.from(sorted_lic.keys())[0]}`);
         $('.favorite_lic_percent').text(`${fav_lic_per}% of ${username}'s projects are licensed under ${Array.from(sorted_lic.keys())[0]}`);
         $('.language_list').html(language_list).wrap('<pre />');
-      },
-      error: function(response) {
-        $('.errors').text(response.message);
-        console.log("errors");
-        console.log(response.message);
-      }
-    });
-    $.ajax({
-      url: `https://api.github.com/users/${username}`,
-      //url: `http://api.openweathermap.org/data/2.5/weather?q=${city}`,
-      type: 'GET', // GET because we're passing parameters in the URL
-      data: {
-        format: 'json'
-      },
-      success: function(response) {
-        let avatarURL = response.avatar_url;
-        $('#userAvatar').attr('src', avatarURL);
-        $('#userAvatar').css('display', "inline");
       },
       error: function(response) {
         $('.errors').text(response.message);

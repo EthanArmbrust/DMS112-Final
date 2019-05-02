@@ -2,6 +2,8 @@
   <head>
     <meta charset="utf-8"/>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="github.js"></script>
     <title>Github Repos</title>
     <style>
@@ -15,21 +17,42 @@
   <body>
     <div>
       <h1>Get public GitHub repositories for any user!</h1>
-      <div>
-      <label for="username">Enter a GitHub username:</label>
-      <input id="username" type="text">
-    </div>
-      <button id="getButton">Get user's repos!</button>
+      <div class="container-fluid">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" id="input_area">
+          <label for="username">Enter a GitHub username:</label>
+          <input id="username" class="search-box" type="text" placeholder="GitHub Username">
+          <button id="getButton">Get user's repos!</button>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
       <br>
-      <img id="userAvatar" width="200" height="200" style="display:none;">
-      <div class="repoCount"></div>
-      <div class="errors"></div>
-      <div class="firstRepo"></div>
-      <h3 class="favorite"></h3>
-      <div class="favorite_percent"></div>
-      <h3 class="favorite_lic"></h3>
-      <div class="favorite_lic_percent"></div>
-      <div class="language_list"></div>
+      <div class="container-fluid" id="content" style="display:none;">
+        <div class="row" id="content-row">
+          <div class= "col-md-4 card" id="avatar_name">
+            <div class="col-md-12">
+              <img id="userAvatar" width="200" height="200" style="display:none;">
+              <h2 class="username"></h2>
+              <div class="repoCount"></div>
+            </div>
+          </div>
+          <div class= "col-md-4 card">
+            <div class="col-md-12">
+              <div class="errors"></div>
+              <h3 class="favorite"></h3>
+              <div class="favorite_percent"></div>
+              <h3 class="favorite_lic"></h3>
+              <div class="favorite_lic_percent"></div>
+            </div>
+          </div>
+          <div class="col-md-4 card">
+            <div class="col-md-12">
+              <h3>List of user's public repositories</h3>
+              <div class="language_list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
   </body>
 </html>

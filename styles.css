@@ -1,0 +1,35 @@
+.search-box {
+  border: 1px solid #7aadff;
+	color: black;
+    font-size: 14pt;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	padding: 0 12px;
+	height: 42px;
+	width: 100%;
+	border-radius: 42px;
+	outline: none;
+  text-align: center;
+}
+#avatar_name{
+  text-align: center;
+}
+#input_area{
+  text-align: center;
+}
+
+.col-md-12{
+  margin-top:10px;
+	border: #cdcdcd medium solid;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+.card{
+  /*
+  border-radius: 6px;
+  outline-color: invert;
+  background-color: #cccccc;
+  */
+  padding: 12px;
+}

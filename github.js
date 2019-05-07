@@ -100,7 +100,7 @@ $(document).ready(function() {
         $('.favorite_percent').text(`${fav_per}% of ${username}'s projects are written in ${unique_lan[best]}`);
         $('.favorite_lic').text(`User's favorite license: ${Array.from(sorted_lic.keys())[0]}`);
         $('.favorite_lic_percent').text(`${fav_lic_per}% of ${username}'s projects are licensed under ${Array.from(sorted_lic.keys())[0]}`);
-        $('.language_list').html(language_list).wrap('<pre />');
+        $('.language_list').text(language_list);
       },
       error: function(response) {
         $('.errors').text(response.message);

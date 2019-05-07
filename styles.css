@@ -17,6 +17,10 @@
 #input_area{
   text-align: center;
 }
+.language_list{
+  font-family: "Courier New", monospace;
+  white-space: pre;
+}
 
 .col-md-12{
   margin-top:10px;
